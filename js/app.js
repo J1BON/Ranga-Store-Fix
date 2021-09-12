@@ -229,17 +229,20 @@ const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
     const image = product.image;
+    const rating = product.rating.rate;
+    const ratingCount = product.rating.count;
     const div = document.createElement("div");
-    div.classList.add("product");
+    div.classList.add("product,p-5");
     div.innerHTML = `<div class="single-product">
       <div>
     <img class="product-image" src=${image}></img>
       </div>
-      <h3>${product.title}</h3>
-      <p>Category: ${product.category}</p>
+      <h4>${product.title}</h4>
+      <p class="m-0">Category: ${product.category}</p>
       <h2>Price: $ ${product.price}</h2>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
       <button id="details-btn" class="btn btn-danger">Details</button></div>
+      <h6> <span>rating: ${rating}</span>  | <span> rated by: ${ratingCount} person</span> </h6>
       `;
     document.getElementById("all-products").appendChild(div);
   }
@@ -248,8 +251,6 @@ let count = 0;
 const addToCart = (id, price) => {
   count = count + 1;
   updatePrice("price", price);
-
-  updateTotal();
   updateTaxAndCharge();
   document.getElementById("total-Products").innerText = count;
 };
@@ -288,8 +289,9 @@ const updateTaxAndCharge = () => {
     setInnerText("delivery-charge", 60);
     setInnerText("total-tax", priceConverted * 0.4);
   }
-};
 
+  updateTotal();
+};
 //grandTotal update function
 const updateTotal = () => {
   const grandTotal =
