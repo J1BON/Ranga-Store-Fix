@@ -1,3 +1,4 @@
+// load all products data
 const loadProducts = () => {
   const data = [{
     "id": 1,
@@ -233,16 +234,20 @@ const showProducts = (products) => {
     const ratingCount = product.rating.count;
     const div = document.createElement("div");
     div.classList.add("product,p-5");
-    div.innerHTML = `<div class="single-product">
-      <div>
-    <img class="product-image" src=${image}></img>
-      </div>
-      <h4>${product.title}</h4>
-      <p class="m-0">Category: ${product.category}</p>
+    div.innerHTML = `<div class="card border-1 m-3 p-3 shadow single-product" style="height:440px">
+    <img src="${image}" class="mx-auto product-image" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">${product.title}</h5>
+      <p class="card-text">Category: ${product.category}
+      </p>
       <h2>Price: $ ${product.price}</h2>
-      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button></div>
-      <h6> <span>rating: ${rating}</span>  | <span> rated by: ${ratingCount} person</span> </h6>
+      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add
+        to cart</button>
+      <button id="details-btn" class="btn btn-danger">Details</button>
+    </div>
+    <h6> <span>rating: ${rating}</span> | <span> rated by: ${ratingCount} person</span> </h6>
+  </div>
+  </div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
@@ -254,7 +259,7 @@ const addToCart = (id, price) => {
   updateTaxAndCharge();
   document.getElementById("total-Products").innerText = count;
 };
-
+// get input value
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
   const converted = parseFloat(element);
@@ -289,7 +294,7 @@ const updateTaxAndCharge = () => {
     setInnerText("delivery-charge", 60);
     setInnerText("total-tax", priceConverted * 0.4);
   }
-
+  // calling total function
   updateTotal();
 };
 //grandTotal update function
